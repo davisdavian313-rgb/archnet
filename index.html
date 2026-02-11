@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCHNETWORK - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Top Bar */
+    .topbar {
+      background: rgba(0,0,0,0.6);
+      padding: 15px;
+      text-align: center;
+      border-bottom: 3px solid #6a82fb;
+      animation: fadeInDown 1s ease;
+    }
+
+    .topbar h1 {
+      font-size: 40px;
+      color: #b2fefa;
+      text-shadow: 2px 2px 6px #000;
+      margin: 0;
+      animation: glowPulse 3s infinite;
+    }
+
+    /* Dropdown Nav */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: rgba(0,0,0,0.4);
+      padding: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: fadeInUp 1s ease;
+    }
+
+    nav a {
+      color: #fffacd;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #b2fefa;
+      transform: translateY(-4px);
+    }
+
+    /* Dropdown container */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      min-width: 160px;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background: #6a82fb;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 10px #6a82fb; }
+      50% { text-shadow: 0 0 20px #b2fefa; }
+      100% { text-shadow: 0 0 10px #6a82fb; }
+    }
+
+    /* Main Content */
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px 30px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h2 {
+      color: #b2fefa;
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .ip-box {
+      background: linear-gradient(135deg, #6a82fb, #b2fefa);
+      color: #1e3c72;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .ip-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+    }
+
+    button {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #6a82fb, #b2fefa);
+      color: #1e3c72;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0,0,0,0.4);
+      color: #fffacd;
+      margin-top: 40px;
+      border-top: 3px solid #6a82fb;
+    }
+  </style>
+</head>
+<body>
+  <!-- Server Name at Top -->
+  <div class="topbar">
+    <h1>ARCHNETWORK</h1>
+  </div>
+
+  <!-- Dropdown Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#">Info ▼</a>
+      <div class="dropdown-content">
+        <a href="about.html">About</a>
+        <a href="rules.html">Rules</a>
+        <a href="staffs.html">Staff</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#">Community ▼</a>
+      <div class="dropdown-content">
+        <a href="support.html">Support</a>
+        <a href="forums.html">Forums</a>
+        <a href="store.html">Store</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <section>
+      <h2>🌐 Server IP</h2>
+      <p>Click to copy and join:</p>
+      <div class="ip-box" onclick="copyIP()">archnetwork.ddns.net</div>
+    </section>
+
+    <section>
+      <h2>🎮 Gamemodes</h2>
+      <ul>
+        <li>🌍 Survival — classic Minecraft with community flair</li>
+        <li>❤️ Lifesteal — PvP with a twist: steal hearts from enemies</li>
+        <li>⛓ OP Prison — grind, rank up, and dominate the mines</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📢 Join the Community</h2>
+      <p>Connect with players, get updates, and chat with staff.</p>
+      <a href="https://discord.gg/eAcG5MAj7M" target="_blank">
+        <button>Join Our Discord</button>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ARCHNETWORK. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function copyIP() {
+      navigator.clipboard.writeText("archnetwork.ddns.net");
+      alert("Server IP copied to clipboard!");
+    }
+  </script>
+</body>
+</html>

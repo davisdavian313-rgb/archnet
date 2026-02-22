@@ -2,535 +2,145 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ARCHNETWORK — Staff Quick Reference</title>
-  <meta name="description" content="Clear, color-coded duties for each ARCHNETWORK staff role." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roles</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root{
-      --bg: #0b0f1a;
-      --panel: #11162a;
-      --panel-2: #0e1426;
-      --text: #e8ecf8;
-      --muted: #b9c3e6;
-      --accent: #7aa2ff;
-      --accent-2: #9b7aff;
-      --border: #1e2745;
+    /* =========================================
+       Roles Page Specific Styling
+    ========================================= */
 
-      /* Role colors */
-      --owner: #ffcc4d;
-      --admin: #ff7a7a;
-      --mod: #7affc3;
-      --builder: #7ab8ff;
-      --dev: #ffa87a;
-      --event: #ff7ad1;
-      --helper: #a7ff7a;
-      --trainee: #c6a7ff;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, #121a33 0%, #0b0f1a 60%, #090d17 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    header{
-      padding: 32px 20px 16px;
-      text-align: center;
-    }
-    header h1{
-      margin: 0 0 8px;
-      font-size: 2rem;
-      letter-spacing: 0.4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    header p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .toolbar{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      padding: 16px 20px 8px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .toolbar .row{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .search{
-      position: relative;
-    }
-    .search input{
-      width: 100%;
-      padding: 12px 14px 12px 40px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-      outline: none;
-    }
-    .search svg{
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      opacity: 0.8;
-    }
-    .filters{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .chip{
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: var(--muted);
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.2s ease;
-      user-select: none;
-    }
-    .chip[data-active="true"]{
-      color: var(--text);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(122,162,255,0.25), inset 0 0 12px rgba(122,162,255,0.15);
-    }
-
-    main{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 12px 20px 40px;
-    }
-
-    .grid{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px){
-      .grid{ grid-template-columns: 1fr; }
-      .toolbar .row{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      position: relative;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(17,22,42,0.9), rgba(14,20,38,0.9));
-      border-radius: 14px;
-      padding: 16px;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    }
-
-    .role-head{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .role-icon{
-      font-size: 1.25rem;
-    }
-    .role-name{
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-    .badge{
-      margin-left: auto;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #0b0f1a;
-      background: var(--accent);
-    }
-
-    /* Role color accents */
-    .card[data-role="owner"] .badge{ background: var(--owner); }
-    .card[data-role="sr-admin"] .badge{ background: var(--admin); }
-    .card[data-role="jr-admin"] .badge{ background: var(--admin); }
-    .card[data-role="sr-mod"] .badge{ background: var(--mod); }
-    .card[data-role="jr-mod"] .badge{ background: var(--mod); }
-    .card[data-role="mod"] .badge{ background: var(--mod); }
-    .card[data-role="builder"] .badge{ background: var(--builder); }
-    .card[data-role="dev"] .badge{ background: var(--dev); }
-    .card[data-role="event"] .badge{ background: var(--event); }
-    .card[data-role="helper"] .badge{ background: var(--helper); }
-    .card[data-role="trainee"] .badge{ background: var(--trainee); }
-
-    .duties{
-      margin: 0;
-      padding: 0 0 0 18px;
-      color: var(--muted);
-    }
-    .duties li{
-      margin: 6px 0;
-    }
-
-    .footer-note{
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 0.9rem;
+    .roles-wrapper {
+      max-width: 1000px;
+      margin: 3rem auto;
       text-align: center;
     }
 
-    /* Subtle glow accent per role */
-    .card::after{
-      content: "";
-      position: absolute;
-      inset: -40% -40% auto auto;
-      width: 220px;
-      height: 220px;
-      filter: blur(60px);
-      opacity: 0.18;
-      pointer-events: none;
-      transform: translate(0, -30%);
-      background: var(--accent);
-    }
-    .card[data-role="owner"]::after{ background: var(--owner); }
-    .card[data-role="sr-admin"]::after,
-    .card[data-role="jr-admin"]::after{ background: var(--admin); }
-    .card[data-role="sr-mod"]::after,
-    .card[data-role="jr-mod"]::after,
-    .card[data-role="mod"]::after{ background: var(--mod); }
-    .card[data-role="builder"]::after{ background: var(--builder); }
-    .card[data-role="dev"]::after{ background: var(--dev); }
-    .card[data-role="event"]::after{ background: var(--event); }
-    .card[data-role="helper"]::after{ background: var(--helper); }
-    .card[data-role="trainee"]::after{ background: var(--trainee); }
-
-    /* Small helper text */
-    .legend{
+    .roles-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
       justify-content: center;
-      margin-top: 8px;
+      gap: 1rem;
+      margin-top: 2rem;
     }
-    .legend .key{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-    .swatch{
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      display: inline-block;
-    }
-    .swatch.owner{ background: var(--owner); }
-    .swatch.admin{ background: var(--admin); }
-    .swatch.mod{ background: var(--mod); }
-    .swatch.builder{ background: var(--builder); }
-    .swatch.dev{ background: var(--dev); }
-    .swatch.event{ background: var(--event); }
-    .swatch.helper{ background: var(--helper); }
-    .swatch.trainee{ background: var(--trainee); }
 
-    /* Accessibility focus */
-    .chip:focus-visible,
-    .card:focus-within{
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    .role-badge {
+      position: relative;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      color: white;
+      font-size: 0.9rem;
     }
+
+    .role-badge:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Tooltip */
+    .role-badge::after {
+      content: attr(data-description);
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: white;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      width: 220px;
+      font-size: 0.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+
+    .role-badge:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
+
+    /* Role Colors */
+
+    .owner { background: linear-gradient(135deg, #ff4d4d, #b30000); }
+    .manager { background: linear-gradient(135deg, #ff7a18, #ffb347); }
+    .admin { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+    .senior-mod { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    .mod { background: linear-gradient(135deg, #10b981, #059669); }
+    .junior-mod { background: linear-gradient(135deg, #84cc16, #65a30d); }
+
+    .epic { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+    .majestic { background: linear-gradient(135deg, #ec4899, #be185d); }
+    .vip { background: linear-gradient(135deg, #facc15, #eab308); color: #111; }
+    .default { background: #6b7280; }
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>ARCHNETWORK — Staff Quick Reference</h1>
-    <p>Clear, color-coded duties for each role. Use search or filters to jump to what you need.</p>
-  </header>
 
-  <section class="toolbar" aria-label="Tools">
-    <div class="row">
-      <div class="search">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-        </svg>
-        <label for="search" class="visually-hidden">Search roles and duties</label>
-        <input id="search" type="text" placeholder="Search roles or duties (e.g., plugins, events, moderation)..." aria-label="Search roles and duties">
+  <div class="roles-wrapper">
+    <h1>Server Roles</h1>
+    <p>Hover over a role to see its description.</p>
+
+    <div class="roles-grid">
+
+      <!-- Staff Roles -->
+      <div class="role-badge owner"
+        data-description="Owner of the server. Full control over everything. Assists all staff members.">
+        Owner
       </div>
 
-      <div class="filters" role="group" aria-label="Role filters">
-        <button class="chip" data-filter="all" data-active="true" aria-pressed="true">All</button>
-        <button class="chip" data-filter="owner">Owner</button>
-        <button class="chip" data-filter="admin">Admin</button>
-        <button class="chip" data-filter="mod">Moderator</button>
-        <button class="chip" data-filter="builder">Builder</button>
-        <button class="chip" data-filter="dev">Developer</button>
-        <button class="chip" data-filter="event">Event</button>
-        <button class="chip" data-filter="helper">Helper</button>
-        <button class="chip" data-filter="trainee">Trainee</button>
+      <div class="role-badge manager"
+        data-description="Manages server operations and staff coordination. Staff assist each other.">
+        Manager
       </div>
+
+      <div class="role-badge admin"
+        data-description="Handles administrative tasks, moderation, and enforcement. Staff assist each other.">
+        Admin
+      </div>
+
+      <div class="role-badge senior-mod"
+        data-description="Experienced moderator overseeing moderation team. Staff assist each other.">
+        Senior Moderator
+      </div>
+
+      <div class="role-badge mod"
+        data-description="Ensures rules are followed and assists members. Staff assist each other.">
+        Moderator
+      </div>
+
+      <div class="role-badge junior-mod"
+        data-description="Entry-level moderator learning moderation responsibilities. Staff assist each other.">
+        Junior Moderator
+      </div>
+
+      <!-- Member Roles -->
+      <div class="role-badge epic"
+        data-description="Premium member with exclusive perks and cosmetic benefits.">
+        Epic
+      </div>
+
+      <div class="role-badge majestic"
+        data-description="High-tier premium member with enhanced perks.">
+        Majestic
+      </div>
+
+      <div class="role-badge vip"
+        data-description="VIP member with special chat color and minor perks.">
+        VIP
+      </div>
+
+      <div class="role-badge default"
+        data-description="Standard member role with basic access.">
+        Default
+      </div>
+
     </div>
+  </div>
 
-    <div class="legend" aria-label="Color legend">
-      <span class="key"><span class="swatch owner"></span> Owner</span>
-      <span class="key"><span class="swatch admin"></span> Admin</span>
-      <span class="key"><span class="swatch mod"></span> Moderator</span>
-      <span class="key"><span class="swatch builder"></span> Builder</span>
-      <span class="key"><span class="swatch dev"></span> Developer</span>
-      <span class="key"><span class="swatch event"></span> Event</span>
-      <span class="key"><span class="swatch helper"></span> Helper</span>
-      <span class="key"><span class="swatch trainee"></span> Trainee</span>
-    </div>
-  </section>
-
-  <main>
-    <div class="grid" id="roleGrid" aria-live="polite">
-      <!-- Owner / Co-Owner -->
-      <article class="card" data-role="owner" data-tags="owner co-owner leadership approvals finances partnerships growth">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">👑</span>
-          <div class="role-name">Owner / Co-Owner</div>
-          <div class="badge">Leadership</div>
-        </div>
-        <ul class="duties">
-          <li>Oversee network and servers</li>
-          <li>Approve staff and major updates</li>
-          <li>Manage finances and partnerships</li>
-          <li>Ensure community growth</li>
-        </ul>
-      </article>
-
-      <!-- Sr Admin -->
-      <article class="card" data-role="sr-admin" data-tags="admin senior hierarchy enforcement serious incidents plugins updates promotions contact owner">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🛡</span>
-          <div class="role-name">Sr Admin</div>
-          <div class="badge">Administration</div>
-        </div>
-        <ul class="duties">
-          <li>Lead the admin team and manage staff hierarchy</li>
-          <li>Enforce rules for serious incidents</li>
-          <li>Oversee server updates and plugins</li>
-          <li>Approve promotions and major staff actions</li>
-          <li>Act as main point of contact for the Owner</li>
-        </ul>
-      </article>
-
-      <!-- Jr Admin -->
-      <article class="card" data-role="jr-admin" data-tags="admin junior moderation oversight enforcement incidents plugins testing mentor reporting">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🛡</span>
-          <div class="role-name">Jr Admin</div>
-          <div class="badge">Administration</div>
-        </div>
-        <ul class="duties">
-          <li>Assist Sr Admins with moderation and staff oversight</li>
-          <li>Enforce rules and handle moderate incidents</li>
-          <li>Support server updates and plugin testing</li>
-          <li>Mentor Sr/Jr Moderators and Moderators</li>
-          <li>Report important issues to Sr Admins</li>
-        </ul>
-      </article>
-
-      <!-- Sr Moderator -->
-      <article class="card" data-role="sr-mod" data-tags="moderation senior disputes violations chat gameplay policies training">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">✨</span>
-          <div class="role-name">Sr Moderator</div>
-          <div class="badge">Moderation</div>
-        </div>
-        <ul class="duties">
-          <li>Lead the moderation team and guide Jr Mods</li>
-          <li>Handle complex player disputes and serious violations</li>
-          <li>Oversee chat and gameplay moderation</li>
-          <li>Assist Admins in enforcing server policies</li>
-          <li>Train Moderators</li>
-        </ul>
-      </article>
-
-      <!-- Jr Moderator -->
-      <article class="card" data-role="jr-mod" data-tags="moderation junior chat behavior warnings mutes kicks reporting guidance support">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">✨</span>
-          <div class="role-name">Jr Moderator</div>
-          <div class="badge">Moderation</div>
-        </div>
-        <ul class="duties">
-          <li>Assist Sr Mods and Admins with moderation</li>
-          <li>Monitor chat and player behavior</li>
-          <li>Handle minor warnings, mutes, kicks</li>
-          <li>Report serious incidents to Sr Mods or Admins</li>
-          <li>Support Moderators and community guidance</li>
-        </ul>
-      </article>
-
-      <!-- Moderator -->
-      <article class="card" data-role="mod" data-tags="moderation chat behavior warn mute kick ban reports onboarding community">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">✨</span>
-          <div class="role-name">Moderator</div>
-          <div class="badge">Moderation</div>
-        </div>
-        <ul class="duties">
-          <li>Monitor chat and player behavior</li>
-          <li>Warn, mute, kick, ban as needed (following rules)</li>
-          <li>Handle player reports and guide new players</li>
-          <li>Keep community friendly and welcoming</li>
-        </ul>
-      </article>
-
-      <!-- Builder -->
-      <article class="card" data-role="builder" data-tags="builder builds areas design functional aesthetic repair improve">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🏗</span>
-          <div class="role-name">Builder</div>
-          <div class="badge">World Design</div>
-        </div>
-        <ul class="duties">
-          <li>Build and maintain server areas</li>
-          <li>Design functional and aesthetic structures</li>
-          <li>Repair and improve existing builds</li>
-        </ul>
-      </article>
-
-      <!-- Developer -->
-      <article class="card" data-role="dev" data-tags="developer plugins maintenance bugs optimization custom items features">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">💻</span>
-          <div class="role-name">Developer</div>
-          <div class="badge">Engineering</div>
-        </div>
-        <ul class="duties">
-          <li>Maintain and develop plugins</li>
-          <li>Test for bugs and optimize server</li>
-          <li>Implement custom items and features</li>
-        </ul>
-      </article>
-
-      <!-- Event Manager -->
-      <article class="card" data-role="event" data-tags="events planning running coordination promotion feedback">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🎉</span>
-          <div class="role-name">Event Manager</div>
-          <div class="badge">Community Events</div>
-        </div>
-        <ul class="duties">
-          <li>Plan and run events</li>
-          <li>Coordinate with staff</li>
-          <li>Promote events and gather feedback</li>
-        </ul>
-      </article>
-
-      <!-- Helper -->
-      <article class="card" data-role="helper" data-tags="helper onboarding questions guidance reporting support events">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🤝</span>
-          <div class="role-name">Helper</div>
-          <div class="badge">Support</div>
-        </div>
-        <ul class="duties">
-          <li>Assist new players</li>
-          <li>Answer questions and guide gameplay</li>
-          <li>Report rule-breaking and support events</li>
-        </ul>
-      </article>
-
-      <!-- Trainee -->
-      <article class="card" data-role="trainee" data-tags="trainee learning rules systems responsibilities assist observe promotion">
-        <div class="role-head">
-          <span class="role-icon" aria-hidden="true">🌱</span>
-          <div class="role-name">Trainee</div>
-          <div class="badge">Onboarding</div>
-        </div>
-        <ul class="duties">
-          <li>Learn the rules, server systems, and staff responsibilities</li>
-          <li>Assist Mods, Admins, Builders, or Event Managers with small tasks</li>
-          <li>Observe moderation and staff procedures</li>
-          <li>Work toward promotion to full staff role</li>
-        </ul>
-      </article>
-    </div>
-
-    <p class="footer-note">Tip: Use the search bar to find specific duties (e.g., “plugins”, “events”, “ban”). Click a filter chip to narrow roles.</p>
-  </main>
-
-  <script>
-    // Simple search & filter
-    const searchInput = document.getElementById('search');
-    const chips = Array.from(document.querySelectorAll('.chip'));
-    const cards = Array.from(document.querySelectorAll('.card'));
-    let activeFilter = 'all';
-
-    function applyFilter(){
-      const q = (searchInput.value || '').trim().toLowerCase();
-      cards.forEach(card => {
-        const role = card.dataset.role;
-        const tags = (card.dataset.tags || '').toLowerCase();
-        const text = (card.innerText || '').toLowerCase();
-
-        const matchesFilter = activeFilter === 'all'
-          ? true
-          : (
-              (activeFilter === 'owner' && role === 'owner') ||
-              (activeFilter === 'admin' && (role === 'sr-admin' || role === 'jr-admin')) ||
-              (activeFilter === 'mod' && (role === 'sr-mod' || role === 'jr-mod' || role === 'mod')) ||
-              (activeFilter === 'builder' && role === 'builder') ||
-              (activeFilter === 'dev' && role === 'dev') ||
-              (activeFilter === 'event' && role === 'event') ||
-              (activeFilter === 'helper' && role === 'helper') ||
-              (activeFilter === 'trainee' && role === 'trainee')
-            );
-
-        const matchesSearch = q.length === 0
-          ? true
-          : (tags.includes(q) || text.includes(q));
-
-        card.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
-      });
-    }
-
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        chips.forEach(c => {
-          c.dataset.active = 'false';
-          c.setAttribute('aria-pressed', 'false');
-        });
-        chip.dataset.active = 'true';
-        chip.setAttribute('aria-pressed', 'true');
-        activeFilter = chip.dataset.filter || 'all';
-        applyFilter();
-      });
-    });
-
-    searchInput.addEventListener('input', applyFilter);
-  </script>
 </body>
-</html>
+        </html>
